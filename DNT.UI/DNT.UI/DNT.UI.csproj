@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\Add.png" />
+    <None Remove="Assets\Images\Card.png" />
+    <None Remove="Assets\Images\Check.png" />
+    <None Remove="Assets\Images\Company.png" />
+    <None Remove="Assets\Images\Delete.png" />
+    <None Remove="Assets\Images\Edit.png" />
+    <None Remove="Assets\Images\Failed.png" />
+    <None Remove="Assets\Images\FloppyDisk.png" />
+    <None Remove="Assets\Images\TransactionLog.png" />
+    <None Remove="Assets\Images\User.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="6.6.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="MvvmValidation" Version="3.1.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DNT.DAL\DNT.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DntDB.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Add.png" />
+    <Resource Include="Assets\Images\Card.png" />
+    <Resource Include="Assets\Images\Check.png" />
+    <Resource Include="Assets\Images\Company.png" />
+    <Resource Include="Assets\Images\Delete.png" />
+    <Resource Include="Assets\Images\Edit.png" />
+    <Resource Include="Assets\Images\Failed.png" />
+    <Resource Include="Assets\Images\FloppyDisk.png" />
+    <Resource Include="Assets\Images\TransactionLog.png" />
+    <Resource Include="Assets\Images\User.png" />
+  </ItemGroup>
+
+</Project>

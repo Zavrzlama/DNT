@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="DNT.UI.Views.CompanyOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" Command="{Binding AddNewCommand}" Style="{StaticResource AddButton}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Assets/Images/Add.png"  Height="20" Margin="2" HorizontalAlignment="Left"/>
+                <TextBlock Text="Dodaj novu firmu" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100"/>
+            </StackPanel>
+        </Button>
+        <GroupBox Header="Pravne osobe" Grid.Row="1">
+            <DataGrid ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}"
+                  AutoGenerateColumns="False"
+                  Margin="2" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Naziv" Binding="{Binding CompanyName}" Width="4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ime vlasnika" Binding="{Binding OwnerName}" Width="4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Prezime vlasnika" Binding="{Binding OwnerSurname}" Width="4*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Adress" Binding="{Binding Adress}" Width="3*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Napomena" Binding="{Binding Description}" Width="3*"></DataGridTextColumn>
+                    <DataGridTemplateColumn Width="1*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button   Width="30" Height="30" 
+                                          Command="{Binding Path=DataContext.EditCommand, RelativeSource = {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}">
+                                    <Image Source="/Assets/Images/Edit.png"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="1*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button   Width="30" Height="30" 
+                                          Command="{Binding Path=DataContext.DeleteCommand, RelativeSource = {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}">
+                                    <Image Source="/Assets/Images/Delete.png" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="DNT.UI.Views.EditUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="550">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <TabControl Style="{DynamicResource MahApps.Styles.TabControl.Animated}">
+        <TabItem Header="Korisnik" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Osobni podaci" Grid.Row="0" Margin="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".15*"/>
+                            <ColumnDefinition Width=".85*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Ime"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Model.Name, Mode=TwoWay, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Prezime"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Model.Surname,ValidatesOnDataErrors=True,ValidatesOnExceptions=True,NotifyOnValidationError=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="OIB"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Model.OIB}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding MOdel.Email}"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Lokacija" Grid.Row="1" Margin="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".15*"/>
+                            <ColumnDefinition Width=".85*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Adresa"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Model.Adress}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Mjesto"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Model.City}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Firma"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" 
+                          ItemsSource="{Binding Companies}" 
+                          SelectedItem="{Binding Model.Company}" 
+                          DisplayMemberPath="CompanyName" 
+                          SelectedValuePath="Id" Margin="2"/>
+                    </Grid>
+                </GroupBox>
+                <Button Grid.Row="2" Command="{Binding SaveCommand}" Style="{StaticResource SaveButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/Images/FloppyDisk.png" Height="20" Margin="2" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Spremi" Margin="2" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Kartica">
+            
+        </TabItem>
+    </TabControl>
+   
+</UserControl>
