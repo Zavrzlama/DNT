@@ -43,6 +43,11 @@ namespace DNT.DAL.Repositories
             await _context.Connection.ExecuteAsync(query.ToString(), param);
         }
 
+        public Task<IEnumerable<User>> Filter(User filter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<IEnumerable<User>> GetAll()
         {
             var query = new StringBuilder();
@@ -57,6 +62,14 @@ namespace DNT.DAL.Repositories
             query.Append("SELECT * FROM User WHERE id = @Id");
 
             return await _context.Connection.QuerySingleAsync<User>(query.ToString());
+        }
+
+        public async Task<int> GetLastInsertedId()
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT MAX(Id) FROM User");
+
+            return await _context.Connection.QuerySingleAsync<int>(query.ToString());
         }
 
         public async Task Update(User model)

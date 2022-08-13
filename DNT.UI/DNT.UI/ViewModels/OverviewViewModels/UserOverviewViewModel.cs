@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace DNT.UI.ViewModels.OverviewViewModels
 {
-    public class UserOverviewViewModel : OverviewViewModelBase<User>
+    public class UserOverviewViewModel : OverviewFilterBase<User>
     {
         private readonly IUserRepository _repository;
 
@@ -35,10 +35,8 @@ namespace DNT.UI.ViewModels.OverviewViewModels
             var editView = new EditUserView(viewModel);
             window.Content = editView;
             window.ShowDialog();
-            if (viewModel.HasErors)
-            {
-                Items.Add(viewModel.Model);
-            }
+            
+            Items.Add(viewModel.Model);
         }
 
         protected override void Edit()
@@ -58,6 +56,17 @@ namespace DNT.UI.ViewModels.OverviewViewModels
                 Items.Remove(SelectedItem);
             }
         }
+
+        protected override Task Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override Task Find()
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
 
         private EditUserViewModel SetUpViewModel(Window window, bool forUpdate)
@@ -69,5 +78,4 @@ namespace DNT.UI.ViewModels.OverviewViewModels
             return viewModel;
         }
     }
-
 }

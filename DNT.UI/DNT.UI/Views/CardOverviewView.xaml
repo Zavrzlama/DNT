@@ -6,7 +6,59 @@
              xmlns:local="clr-namespace:DNT.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="tbStyle">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="txStyle">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="20"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Expander Grid.Row="0" Header="Filter" Margin="2" IsExpanded="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource tbStyle}" Text="Pravna osoba" Grid.Row="0" Grid.Column="0"/>
+                <TextBox Style="{StaticResource txStyle}" Text="{Binding Filter.CompanyName}" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Style="{StaticResource tbStyle}" Text="Prezime zaposlenika" Grid.Row="0" Grid.Column="2"/>
+                <TextBox Style="{StaticResource txStyle}" Text="{Binding Filter.User.Surname}" Grid.Row="0" Grid.Column="3"/>
+                
+                <StackPanel Grid.Row="1" Grid.Column="6" Orientation="Horizontal">
+                    <Button Style="{StaticResource AddButton}"  Command="{Binding ClearCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/Clear.png" Height="20" Margin="2"/>
+                            <TextBlock Text="Očisti"  Margin="2" VerticalAlignment="Center" Width="35"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource AddButton}" Command="{Binding FindCommand}" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/Find.png" Height="20" Margin="2"/>
+                            <TextBlock Text="Pretraži"  Margin="2" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Expander>
+        
         <GroupBox Header="Kartice" Grid.Row="1">
             <DataGrid ItemsSource="{Binding Items}"
                   SelectedItem="{Binding SelectedItem}"
@@ -30,7 +82,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>    
-        
-        
     </Grid>
 </UserControl>

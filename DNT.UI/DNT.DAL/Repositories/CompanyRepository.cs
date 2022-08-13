@@ -33,6 +33,21 @@ namespace DNT.DAL.Repositories
             await _context.Connection.ExecuteAsync(query.ToString(), param);
         }
 
+        public async Task<IEnumerable<Company>> Filter(Company filter)
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT * FROM Company");
+            query.Append("WHERE 1 = 1");
+
+            if (!string.IsNullOrEmpty(filter.CompanyName))
+                query.Append("AND City LIKE %@CompanyName%");
+
+            if (!string.IsNullOrEmpty(filter.City))
+                query.Append("AND City LIKE %@City%");
+
+            return await _context.Connection.QueryAsync<Company>(query.ToString());
+        }
+
         public async Task<IEnumerable<Company>> GetAll()
         {
             var query = new StringBuilder();
@@ -48,6 +63,14 @@ namespace DNT.DAL.Repositories
 
             var param = new { Id = id };
             return await _context.Connection.QuerySingleAsync<Company>(query.ToString(), param);
+        }
+
+        public async Task<int> GetLastInsertedId()
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT MAX(Id) FROM Company");
+
+            return await _context.Connection.QuerySingleAsync<int>(query.ToString());
         }
 
         public async Task Update(Company model)

@@ -8,6 +8,11 @@ using System.Windows.Input;
 
 namespace DNT.UI.ViewModels.Base
 {
+    /// <summary>
+    /// Base class for List binding. 
+    /// Contains Commands for adding new item in list as well updating and deleting existingitems
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class OverviewViewModelBase<T> : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,11 +23,8 @@ namespace DNT.UI.ViewModels.Base
 
         #region Commands
         public ICommand AddNewCommand { get; set; }
-
         public ICommand EditCommand { get; set; }
-
         public ICommand DeleteCommand { get; set; }
-
         public ICommand LoadDataCommand { get; set; }
 
         #endregion

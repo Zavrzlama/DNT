@@ -5,18 +5,70 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" x:Key="tbStyle">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="txStyle">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Command="{Binding AddNewCommand}" Style="{StaticResource AddButton}" >
+        <Expander Grid.Row="0" Header="Filter" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource tbStyle}" Text="Ime" Grid.Row="0" Grid.Column="0"/>
+                <TextBox Style="{StaticResource txStyle}" Text="{Binding Filter.Name}" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Style="{StaticResource tbStyle}" Text="Prezime" Grid.Row="0" Grid.Column="2"/>
+                <TextBox Style="{StaticResource txStyle}" Text="{Binding Filter.Surname}" Grid.Row="0" Grid.Column="3"/>
+                <TextBlock Style="{StaticResource tbStyle}" Text="Grad" Grid.Row="0" Grid.Column="4"/>
+                <TextBox Style="{StaticResource txStyle}" Text="{Binding Filter.City}" Grid.Row="0" Grid.Column="5"/>
+                <StackPanel Grid.Row="1" Grid.Column="6" Orientation="Horizontal">
+                    <Button Style="{StaticResource AddButton}" Command="{Binding FindCommand}" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/Find.png" Height="20" Margin="2"/>
+                            <TextBlock Text="Pretraži"  Margin="2" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource AddButton}"  Command="{Binding ClearCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/Clear.png" Height="20" Margin="2"/>
+                            <TextBlock Text="Očisti"  Margin="2" VerticalAlignment="Center" Width="35"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Expander>
+        <Button Grid.Row="1" Command="{Binding AddNewCommand}" Style="{StaticResource AddButton}" >
             <StackPanel Orientation="Horizontal">
                 <Image Source="/Assets/Images/Add.png" Height="20" Margin="2"/>
                 <TextBlock Text="Dodaj novog korisnika" Margin="2" VerticalAlignment="Center" Width="130"/>
             </StackPanel>
         </Button>
-        <GroupBox Header="Korisnici" Grid.Row="1">
+        <GroupBox Header="Korisnici" Grid.Row="2">
             <DataGrid x:Name="UserList"
                        ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem}"
@@ -33,20 +85,16 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button   Width="30" Height="30" 
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Width="30" Height="30" Margin="2"
                                           Command="{Binding Path=DataContext.EditCommand, RelativeSource = {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}">
-                                    <Image Source="/Assets/Images/Edit.png"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button   Width="30" Height="30" 
+                                        <Image Source="/Assets/Images/Edit.png"/>
+                                    </Button>
+                                    <Button Width="30" Height="30" Margin="2"
                                           Command="{Binding Path=DataContext.DeleteCommand, RelativeSource = {RelativeSource FindAncestor,AncestorType={x:Type DataGrid}}}">
-                                    <Image Source="/Assets/Images/Delete.png"/>
-                                </Button>
+                                        <Image Source="/Assets/Images/Delete.png"/>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

@@ -40,7 +40,7 @@ namespace DNT.UI.ViewModels.EditViewModels
 
         protected override void AddValidationRules()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

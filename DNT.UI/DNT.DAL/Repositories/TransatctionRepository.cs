@@ -17,12 +17,22 @@ namespace DNT.DAL.Repositories
             throw new System.NotImplementedException();
         }
 
+        public Task<IEnumerable<Transaction>> Filter(Transaction filter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<IEnumerable<Transaction>> GetAll()
         {
             throw new System.NotImplementedException();
         }
 
         public Task<Transaction> GetById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> GetLastInsertedId()
         {
             throw new System.NotImplementedException();
         }

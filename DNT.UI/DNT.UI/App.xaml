@@ -16,10 +16,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
-
-            
-            
             <!-- SaveButton -->
             <Style x:Key="SaveButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
                 <Setter Property="Width" Value="100"/>

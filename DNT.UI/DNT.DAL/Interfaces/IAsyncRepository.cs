@@ -10,5 +10,8 @@ namespace DNT.DAL.Interfaces
         Task Delete(int id);
         Task<T> GetById(int id);
         Task<IEnumerable<T>> GetAll(); 
+        Task<IEnumerable<T>> Filter(T filter);
+        Task<int> GetLastInsertedId();
+
     }
 }

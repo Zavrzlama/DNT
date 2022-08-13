@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:DNT.UI.Views.Dialogs"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="800">
-    
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-        
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
         <TextBlock Grid.Row="0" x:Name="Message" 
                    FontSize="16" 
-                   HorizontalAlignment="Center" Margin="4" Width="400"/>
+                   HorizontalAlignment="Center" Margin="4"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom">
             <Button x:Name="btn_yes" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="100" Height="30" Content="Da" Margin="2" Click="btn_yes_Click"/>
             <Button x:Name="btn_no" Style="{StaticResource MahApps.Styles.Button.Square}" Width="100" Height="30" Content="Ne" Margin="2" Click="btn_no_Click"/>

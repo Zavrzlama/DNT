@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace DNT.UI.ViewModels.OverviewViewModels
 {
-    public class CompanyOverviewViewModel : OverviewViewModelBase<Company>
+    public class CompanyOverviewViewModel : OverviewFilterBase<Company>
     {
         private readonly ICompanyRepository _repository;
 
@@ -46,6 +46,16 @@ namespace DNT.UI.ViewModels.OverviewViewModels
             window.Content = new EditCompanyView(viewModel);
 
             window.ShowDialog();
+        }
+
+        protected override Task Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override Task Find()
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override async Task Load()

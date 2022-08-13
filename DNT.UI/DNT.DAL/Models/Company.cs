@@ -10,6 +10,7 @@
         public string Email { get; set; }
         public string Adress { get; set; }
         public string City { get; set; }
+        public string Contract { get; set; }
         public string Description { get; set; }
     }
 }

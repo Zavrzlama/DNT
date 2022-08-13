@@ -6,6 +6,7 @@ using DNT.UI.ViewModels.Base;
 using Microsoft.Toolkit.Mvvm.Input;
 using MvvmValidation;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,47 +14,34 @@ using System.Windows.Input;
 
 namespace DNT.UI.ViewModels.EditViewModels
 {
-    public class EditUserViewModel : CodebookBase<User>, INotifyPropertyChanged
+    public class EditUserViewModel : CardOwnerBase<User>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region Private fields
         private readonly IUserRepository _userRepository;
-        private readonly ICardRepository _cardRepository;
         private readonly ICompanyRepository _companyRepository;
         #endregion
 
-        #region Bindings
-        public List<Card> Cards { get; set; }
-        public List<Company> Companies { get; set; }
-        #endregion
-
+        public IList<Company> Companies { get; set; }
+        
         #region Commands
-        public ICommand LoadCardsCommand { get; set; }
         public ICommand LoadCompaniesCommand { get; set; }
         #endregion
-
-        private async Task LoadCards()
-        {
-            Cards = (await _cardRepository.GetAll()).ToList();
-        }
 
         private async Task LoadCompanies()
         {
             Companies = (await _companyRepository.GetAll()).ToList();
         }
 
-        public EditUserViewModel(IUserRepository userRepository, ICardRepository cardRepository, ICompanyRepository companyRepository)
+        public EditUserViewModel(IUserRepository userRepository,ICompanyRepository companyRepository)
         {
-            InitializeCommands();
-
             _userRepository = userRepository;
-            _cardRepository = cardRepository;
             _companyRepository = companyRepository;
 
-            LoadCardsCommand.Execute(null);
+            LoadCompaniesCommand = new AsyncRelayCommand(LoadCompanies);
             LoadCompaniesCommand.Execute(null);
-
+            LoadCardsCommand.Execute(null);
         }
 
         protected override async Task Save()
@@ -74,6 +62,7 @@ namespace DNT.UI.ViewModels.EditViewModels
             }
         }
 
+        #region Abstract impelenatation
         protected override void AddValidationRules()
         {
             Validator.AddRule(() => Model.Name,
@@ -93,11 +82,23 @@ namespace DNT.UI.ViewModels.EditViewModels
                     return RuleResult.Assert(Model.Company != null, "Firma je obavezan podatak");
                 });
         }
-        private void InitializeCommands()
+        
+        protected override Task SaveCard()
         {
-            LoadCardsCommand = new AsyncRelayCommand(LoadCards);
-            LoadCompaniesCommand = new AsyncRelayCommand(LoadCompanies);
+            throw new System.NotImplementedException();
         }
+
+        protected override async Task LoadCards()
+        {
+            var list = (await CardRepository.GetCardsForUser(Model)).ToList();
+            Cards = new ObservableCollection<Card>(list);
+        }
+
+        protected override void AddCard()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
     }
 }
 

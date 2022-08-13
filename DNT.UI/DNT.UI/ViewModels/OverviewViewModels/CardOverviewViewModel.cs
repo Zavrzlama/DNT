@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace DNT.UI.ViewModels.OverviewViewModels
 {
-    public class CardOverviewViewModel : OverviewViewModelBase<Card>
+    public class CardOverviewViewModel : OverviewFilterBase<Card>
     {
         private readonly ICardRepository _cardRepository;
 
@@ -47,6 +47,15 @@ namespace DNT.UI.ViewModels.OverviewViewModels
 
             window.ShowDialog();
 
+        }
+        protected override Task Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override Task Find()
+        {
+            throw new System.NotImplementedException();
         }
 
         protected async override Task Load()

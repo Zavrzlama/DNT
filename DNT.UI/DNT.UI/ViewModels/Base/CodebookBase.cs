@@ -15,11 +15,8 @@ namespace DNT.UI.ViewModels.Base
 
         #region Public properties
         public T Model { get; set; }
-        public string Title { get; set; }
         public bool ForUpdate { get; set; }
-        public bool HasErors { get; set; }
         public Window Window { get; set; }
-
         public ValidationHelper Validator { get; private set; }
         private NotifyDataErrorInfoAdapter NotifyDataErrorInfoAdapter { get; set; }
         #endregion
@@ -38,11 +35,11 @@ namespace DNT.UI.ViewModels.Base
         {
             Validator = new ValidationHelper();
             NotifyDataErrorInfoAdapter = new NotifyDataErrorInfoAdapter(Validator);
-            initializeCommands();
+            InitializeCommands();
             AddValidationRules();
         }
 
-        private void initializeCommands()
+        private void InitializeCommands()
         {
             SaveCommand = new AsyncRelayCommand(Save);
         }

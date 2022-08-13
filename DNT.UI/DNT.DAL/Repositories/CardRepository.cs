@@ -98,5 +98,15 @@ namespace DNT.DAL.Repositories
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<IEnumerable<Card>> Filter(Card filter)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> GetLastInsertedId()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

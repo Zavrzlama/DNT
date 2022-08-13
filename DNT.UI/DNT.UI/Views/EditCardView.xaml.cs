@@ -8,13 +8,11 @@ namespace DNT.UI.Views
     /// </summary>
     public partial class EditCardView : UserControl
     {
-        private readonly EditCardViewModel _model;
-
         public EditCardView(EditCardViewModel model)
         {
             InitializeComponent();
-            _model = model;
-            DataContext = _model;
+            DataContext = model;
         }
+
     }
 }
