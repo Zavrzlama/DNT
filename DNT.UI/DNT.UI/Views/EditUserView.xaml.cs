@@ -15,6 +15,13 @@ namespace DNT.UI.Views
             InitializeComponent();
             _model = model;
             DataContext = _model;
+            Loaded += _editUserView_Loaded;
+        }
+
+        private async void _editUserView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await _model.LoadCompanies();
+            await _model.LoadCards();
         }
     }
 }

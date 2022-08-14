@@ -8,10 +8,19 @@ namespace DNT.UI.Views
     /// </summary>
     public partial class EditCompanyView : UserControl
     {
+        private EditCompanyViewModel _model;
         public EditCompanyView(EditCompanyViewModel model)
         {
             InitializeComponent();
-            DataContext = model;
+            _model = model;
+            DataContext = _model;
+            Loaded += _editCompanyView_Loaded;
+
+        }
+
+        private async void _editCompanyView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await _model.LoadCards();
         }
     }
 }

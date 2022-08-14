@@ -88,10 +88,10 @@
                     </StackPanel>
                 </Button>
 
-                <DataGrid Grid.Row="1">
+                <DataGrid Grid.Row="1" ItemsSource="{Binding Cards}" SelectedItem="{Binding SelectedCard}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Datum" Width=".50*"></DataGridTextColumn>
-                        <DataGridTextColumn Header="UID" Width=".50*"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Date, StringFormat=d, ConverterCulture=hr-HR}" Header="Datum" Width=".50*"></DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding UID}" Header="UID" Width=".50*"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

@@ -19,7 +19,7 @@ namespace DNT.DAL.Repositories
         {
             var query = new StringBuilder();
             query.Append("INSERT INTO User(Name,Surname,Email, OIB, Adress, City, CompanyId)");
-            query.AppendLine("VALUES (@Name, @Surname, @Email, @OIB, @Adress, @City, @CompanyId);");
+            query.AppendLine("VALUES (@Name, @Surname, @Email, @OIB, @Adress, @City, @CompanyId)");
 
             var param = new
             {

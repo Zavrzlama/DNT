@@ -1,9 +1,11 @@
-﻿namespace DNT.DAL.Models
+﻿using System;
+
+namespace DNT.DAL.Models
 {
     public class Card
     {
         public int Id { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public string UID { get; set; }
         public string Description { get; set; }
         public Company Company { get; set; }

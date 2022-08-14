@@ -19,10 +19,37 @@ namespace DNT.DAL.Repositories
         public async Task Create(Card model)
         {
             var query = new StringBuilder();
-            query.Append("INSERT INTO Card(Contract, Date, UserId, CompanyId, Active)");
-            query.AppendLine("VALUES (@Contract,@Date,@UserId,@CompanyId,@Active)");
+            
+            if (model.User != null)
+            {
+                query.Append("INSERT INTO Card(Date, UID, UserId Active)");
+                query.AppendLine("VALUES (@Date, @UID, @UserId, @Active)");
 
-            await _context.Connection.ExecuteAsync(query.ToString(), model);
+                var parameters = new
+                {
+                    Date = model.Date,
+                    UID = model.UID,
+                    UserId = model.User.Id,
+                    Active = model.IsActive
+                };
+                await _context.Connection.ExecuteAsync(query.ToString(), parameters);
+            }
+
+            if (model.Company != null)
+            {
+                query.Append("INSERT INTO Card(Date, UID, CompanyId, Active)");
+                query.AppendLine("VALUES (@Date, @UID, @CompanyId, @Active)");
+
+                var parameters = new
+                {
+                    Date = model.Date,
+                    UID = model.UID,
+                    CompanyId = model.Company.Id,
+                    Active = model.IsActive
+                };
+
+                await _context.Connection.ExecuteAsync(query.ToString(), parameters);
+            }            
         }
 
         public async Task Delete(int id)
@@ -45,7 +72,7 @@ namespace DNT.DAL.Repositories
         public async Task<Card> GetById(int id)
         {
             var query = new StringBuilder();
-            query.Append("SELECT * FROM Company WHERE id = @Id");
+            query.Append("SELECT * FROM Card WHERE id = @Id");
 
             var param = new { Id = id };
             return await _context.Connection.QuerySingleAsync<Card>(query.ToString(), param);
@@ -64,8 +91,6 @@ namespace DNT.DAL.Repositories
 
             await _context.Connection.ExecuteAsync(query.ToString(), model);
         }
-
-
 
         public async Task<IEnumerable<Card>> GetCardsForOverview()
         {
@@ -89,14 +114,22 @@ namespace DNT.DAL.Repositories
                 }, splitOn: "UserId,CompanyId");
         }
 
-        public Task<IEnumerable<Card>> GetCardsForCompany(Company model)
+        public async Task<IEnumerable<Card>> GetCardsForCompany(Company model)
         {
-            throw new System.NotImplementedException();
+            var query = new StringBuilder();
+            query.Append("SELECT * FROM Card WHERE CompanyId = @CompanyId");
+
+            var param = new { CompanyId = model.Id };
+            return await _context.Connection.QueryAsync<Card>(query.ToString(), param);
         }
 
-        public Task<IEnumerable<Card>> GetCardsForUser(User model)
+        public async Task<IEnumerable<Card>> GetCardsForUser(User model)
         {
-            throw new System.NotImplementedException();
+            var query = new StringBuilder();
+            query.Append("SELECT * FROM Card WHERE UserId = @UserId");
+
+            var param = new { UserId = model.Id };
+            return await _context.Connection.QueryAsync<Card>(query.ToString(), param);
         }
 
         public Task<IEnumerable<Card>> Filter(Card filter)

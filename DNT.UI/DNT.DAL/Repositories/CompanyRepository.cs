@@ -19,7 +19,7 @@ namespace DNT.DAL.Repositories
         {
             var query = new StringBuilder();
             query.Append("INSERT INTO Company(CompanyName,Adress,OIB,OwnerName,OwnerSurname,Email,Description)");
-            query.AppendLine("VALUES (@CompanyName,@Adress,OIB,@OwnerName,@OwnerSurname,@Email,@Description);");
+            query.AppendLine("VALUES (@CompanyName,@Adress,@OIB,@OwnerName,@OwnerSurname,@Email,@Description);");
 
             await _context.Connection.ExecuteAsync(query.ToString(), model);
         }

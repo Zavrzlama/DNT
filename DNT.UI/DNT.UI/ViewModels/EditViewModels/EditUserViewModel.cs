@@ -3,14 +3,12 @@ using DNT.DAL.Models;
 using DNT.UI.Enums;
 using DNT.UI.Utils;
 using DNT.UI.ViewModels.Base;
-using Microsoft.Toolkit.Mvvm.Input;
 using MvvmValidation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace DNT.UI.ViewModels.EditViewModels
 {
@@ -24,41 +22,32 @@ namespace DNT.UI.ViewModels.EditViewModels
         #endregion
 
         public IList<Company> Companies { get; set; }
-        
-        #region Commands
-        public ICommand LoadCompaniesCommand { get; set; }
-        #endregion
 
-        private async Task LoadCompanies()
+        public async Task LoadCompanies()
         {
             Companies = (await _companyRepository.GetAll()).ToList();
         }
 
-        public EditUserViewModel(IUserRepository userRepository,ICompanyRepository companyRepository)
+        public EditUserViewModel(IUserRepository userRepository, ICompanyRepository companyRepository, ICardRepository cardRepository)
         {
             _userRepository = userRepository;
             _companyRepository = companyRepository;
-
-            LoadCompaniesCommand = new AsyncRelayCommand(LoadCompanies);
-            LoadCompaniesCommand.Execute(null);
-            LoadCardsCommand.Execute(null);
+            CardRepository = cardRepository;
         }
 
         protected override async Task Save()
         {
             if (!Validate()) return;
-            
+
             if (ForUpdate)
             {
                 await _userRepository.Update(Model);
                 DialogManager.ShowMessage("Korinisk uspješno ažuriran", OperationResult.Success);
-                Window.Close();
             }
             else
             {
                 await _userRepository.Create(Model);
                 DialogManager.ShowMessage("Korisnik uspješno dodan", OperationResult.Success);
-                Window.Close();
             }
         }
 
@@ -82,13 +71,8 @@ namespace DNT.UI.ViewModels.EditViewModels
                     return RuleResult.Assert(Model.Company != null, "Firma je obavezan podatak");
                 });
         }
-        
-        protected override Task SaveCard()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        protected override async Task LoadCards()
+        public override async Task LoadCards()
         {
             var list = (await CardRepository.GetCardsForUser(Model)).ToList();
             Cards = new ObservableCollection<Card>(list);

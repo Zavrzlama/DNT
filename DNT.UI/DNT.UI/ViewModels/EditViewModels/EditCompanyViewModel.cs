@@ -47,12 +47,7 @@ namespace DNT.UI.ViewModels.EditViewModels
             //throw new System.NotImplementedException();
         }
 
-        protected override async Task SaveCard()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override async Task LoadCards()
+        public override async Task LoadCards()
         {
             var list = (await CardRepository.GetCardsForCompany(Model));
             Cards = new ObservableCollection<Card>(list);
@@ -62,12 +57,11 @@ namespace DNT.UI.ViewModels.EditViewModels
         {
             var window = DialogManager.ShowCustomDialogWindow("", 500);
             var viewModel = App.ServiceProvider.GetRequiredService<EditCardViewModel>();
-            viewModel.Model = new Card();
+            viewModel.Model = new Card { Company = Model};
+
             window.Content = new EditCardView(viewModel);
 
             window.ShowDialog();
-
-            
         }
         #endregion
     }

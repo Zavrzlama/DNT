@@ -9,5 +9,6 @@ namespace DNT.DAL.Interfaces
         Task<IEnumerable<Card>> GetCardsForOverview();
         Task<IEnumerable<Card>> GetCardsForCompany(Company model);
         Task<IEnumerable<Card>> GetCardsForUser(User model);
+
     }
 }
